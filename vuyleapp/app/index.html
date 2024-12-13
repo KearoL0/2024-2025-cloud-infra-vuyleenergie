@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuyle Energie Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #333;
+        }
+        .header img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .chart {
+            height: 200px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chart canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .alert {
+            padding: 10px;
+            background: #ffe082;
+            border-left: 5px solid #ffca28;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .host-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .branding {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+        }
+        .branding .logo {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .branding .tagline {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #444;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vuyle Energie Dashboard</h1>
+            <p class="subtitle">"Making Green Energy a Little Less Dirty"</p>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="grid">
+            <div class="card">
+                <h2>Total Energy Consumption</h2>
+                <p><strong>350 kWh</strong></p>
+            </div>
+            <div class="card">
+                <h2>Total Energy Production</h2>
+                <p><strong>420 kWh</strong></p>
+            </div>
+            <div class="card">
+                <h2>Net Energy</h2>
+                <p><strong>+70 kWh</strong></p>
+            </div>
+        </div>
+
+        <!-- Graphs Section -->
+        <div class="grid">
+            <div class="card">
+                <h2>Energy Usage Over Time</h2>
+                <div class="chart">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Energy Source Distribution</h2>
+                <div class="chart">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Analysis -->
+        <div class="grid">
+            <div class="card">
+                <h2>Total Energy Cost</h2>
+                <p><strong>€50</strong></p>
+            </div>
+            <div class="card">
+                <h2>Savings from Renewable Energy</h2>
+                <p><strong>€15</strong></p>
+            </div>
+        </div>
+
+        <!-- Alerts Section -->
+        <div class="card">
+            <h2>Alerts & Insights</h2>
+            <div class="alert">High energy consumption detected in the last hour.</div>
+            <div class="alert">Consider scheduling appliance usage during off-peak hours to save costs.</div>
+        </div>
+
+        <!-- Host Info -->
+        <div class="host-info">
+            Hosted on: <strong id="host-info">Loading...</strong>
+        </div>
+
+        <!-- Branding -->
+        <div class="branding">
+            <div class="logo">Vuyle Energie</div>
+            <div class="tagline">Pioneering Green Energy, One Dirty Watt at a Time!</div>
+        </div>
+    </div>
+
+    <script>
+        // Hostname
+        document.getElementById('host-info').innerText = window.location.hostname || 'Unknown Host';
+
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Energy Usage (kWh)',
+                    data: [50, 60, 55, 70, 65, 80, 75],
+                    borderColor: '#00796b',
+                    backgroundColor: 'rgba(0, 121, 107, 0.1)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                },
+            }
+        });
+
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Solar', 'Wind', 'Grid'],
+                datasets: [{
+                    label: 'Energy Source Distribution',
+                    data: [45, 25, 30],
+                    backgroundColor: ['#ff9800', '#4caf50', '#2196f3'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                },
+            }
+        });
+    </script>
+</body>
+</html>
